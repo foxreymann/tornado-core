@@ -14,23 +14,19 @@ module.exports = {
       defaultEtherBalance: 9999
     },
     moonbase: {
-      provider: () => new HDWalletProvider(
-        mnemonic,
-        "https://rpc.testnet.moonbeam.network"
-      ),
-provider: () =>
-new HDWalletProvider({
-  mnemonic: {
-    phrase: mnemonic
-  },
-  providerOrUrl: "https://rpc.testnet.moonbeam.network",
-  numberOfAddresses: 1,
-  shareNonce: true,
-}),
-       network_id: 1287,
-       gasPrice: 0,
-       gas: 12000000,
-       skipDryRun: true
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: mnemonic
+          },
+          providerOrUrl: "https://rpc.testnet.moonbeam.network",
+       numberOfAddresses: 1,
+       shareNonce: true,
+      }),
+      network_id: 1287,
+      gasPrice: 0,
+      gas: 12000000,
+      skipDryRun: true
     },
 
 /*
