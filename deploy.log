@@ -1,0 +1,368 @@
+tarting migrations...
+======================
+> Network name:    'moonbase'
+> Network id:      1287
+> Block gas limit: 0 (0x0)
+
+
+1_initial_migration.js
+======================
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+2_deploy_hasher.js
+==================
+
+   Deploying 'Hasher'
+   ------------------
+   > transaction hash:    0x2b24fdc04bd68d867002098c7dd799e497c9f664a735b95f446a0938a748d83d
+   > Blocks: 0            Seconds: 12
+   > contract address:    0x713F4E061Cc53A3d89F3b7112b250E8E11262dCa
+   > block number:        184262
+   > block timestamp:     1610563896
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            2438214 (0x253446)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+3_deploy_verifier.js
+====================
+
+   Deploying 'Verifier'
+   --------------------
+   > transaction hash:    0x9e3bb19d3b27ba6d3e9059845df65abd1d90fdf9d3461f2e5c3cea22d366a8e3
+   > Blocks: 2            Seconds: 28
+   > contract address:    0x83F2Cb248280c767566BdfA7e40eB23994640485
+   > block number:        184264
+   > block timestamp:     1610563926
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            870280 (0xd4788)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+4_deploy_eth_tornado.js
+=======================
+
+   Deploying 'ETHTornado'
+   ----------------------
+   > transaction hash:    0x990cdbc93dbdd41d387fb63faf0423c04fe8c70a45d2fda3a3320b6747ecc3b2
+   > Blocks: 1            Seconds: 16
+   > contract address:    0x07648b36ACe082c08b251354C26aEB5c8EA6e84C
+   > block number:        184265
+   > block timestamp:     1610563944
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            3017810 (0x2e0c52)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+ETHTornado's address  0x07648b36ACe082c08b251354C26aEB5c8EA6e84C
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+5_deploy_erc20_tornado.js
+=========================
+
+   Deploying 'ERC20Mock'
+   ---------------------
+   > transaction hash:    0xa4da1aac68b5a26279c967bd2a128dfc0effcac69ecd208af5e56b7b8b533f5a
+   > Blocks: 1            Seconds: 20
+   > contract address:    0xDAdB1528B8b6eDF5f3657E2fa060b705f45dBE3A
+   > block number:        184267
+   > block timestamp:     1610563968
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            974167 (0xedd57)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+
+   Deploying 'ERC20Tornado'
+   ------------------------
+   > transaction hash:    0x8169138709740d768d55e5f782936f0dcb065e59f3721214a942b810239226a0
+   > Blocks: 0            Seconds: 20
+   > contract address:    0x74Bdc0947908eBd33d5925A4f0D44B91BCED789E
+   > block number:        184268
+   > block timestamp:     1610563986
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            3213977 (0x310a99)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+ERC20Tornado's address  0x74Bdc0947908eBd33d5925A4f0D44B91BCED789E
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+Summary
+=======
+> Total deployments:   5
+> Final cost:          0 ETH
+
+Starting migrations...
+======================
+> Network name:    'moonbase'
+> Network id:      1287
+> Block gas limit: 0 (0x0)
+
+
+1_initial_migration.js
+======================
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+2_deploy_hasher.js
+==================
+
+   Deploying 'Hasher'
+   ------------------
+   > transaction hash:    0x2b24fdc04bd68d867002098c7dd799e497c9f664a735b95f446a0938a748d83d
+   > Blocks: 0            Seconds: 12
+   > contract address:    0x713F4E061Cc53A3d89F3b7112b250E8E11262dCa
+   > block number:        184262
+   > block timestamp:     1610563896
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            2438214 (0x253446)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+3_deploy_verifier.js
+====================
+
+   Deploying 'Verifier'
+   --------------------
+   > transaction hash:    0x9e3bb19d3b27ba6d3e9059845df65abd1d90fdf9d3461f2e5c3cea22d366a8e3
+   > Blocks: 2            Seconds: 28
+   > contract address:    0x83F2Cb248280c767566BdfA7e40eB23994640485
+   > block number:        184264
+   > block timestamp:     1610563926
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            870280 (0xd4788)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+4_deploy_eth_tornado.js
+=======================
+
+   Deploying 'ETHTornado'
+   ----------------------
+   > transaction hash:    0x990cdbc93dbdd41d387fb63faf0423c04fe8c70a45d2fda3a3320b6747ecc3b2
+   > Blocks: 1            Seconds: 16
+   > contract address:    0x07648b36ACe082c08b251354C26aEB5c8EA6e84C
+   > block number:        184265
+   > block timestamp:     1610563944
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            3017810 (0x2e0c52)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+ETHTornado's address  0x07648b36ACe082c08b251354C26aEB5c8EA6e84C
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+5_deploy_erc20_tornado.js
+=========================
+
+   Deploying 'ERC20Mock'
+   ---------------------
+   > transaction hash:    0xa4da1aac68b5a26279c967bd2a128dfc0effcac69ecd208af5e56b7b8b533f5a
+   > Blocks: 1            Seconds: 20
+   > contract address:    0xDAdB1528B8b6eDF5f3657E2fa060b705f45dBE3A
+   > block number:        184267
+   > block timestamp:     1610563968
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            974167 (0xedd57)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+
+   Deploying 'ERC20Tornado'
+   ------------------------
+   > transaction hash:    0x8169138709740d768d55e5f782936f0dcb065e59f3721214a942b810239226a0
+   > Blocks: 0            Seconds: 20
+   > contract address:    0x74Bdc0947908eBd33d5925A4f0D44B91BCED789E
+   > block number:        184268
+   > block timestamp:     1610563986
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            3213977 (0x310a99)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+ERC20Tornado's address  0x74Bdc0947908eBd33d5925A4f0D44B91BCED789E
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+Summary
+=======
+> Total deployments:   5
+> Final cost:          0 ETH
+
+Starting migrations...
+======================
+> Network name:    'moonbase'
+> Network id:      1287
+> Block gas limit: 0 (0x0)
+
+
+1_initial_migration.js
+======================
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+2_deploy_hasher.js
+==================
+
+   Deploying 'Hasher'
+   ------------------
+   > transaction hash:    0x2b24fdc04bd68d867002098c7dd799e497c9f664a735b95f446a0938a748d83d
+   > Blocks: 0            Seconds: 12
+   > contract address:    0x713F4E061Cc53A3d89F3b7112b250E8E11262dCa
+   > block number:        184262
+   > block timestamp:     1610563896
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            2438214 (0x253446)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+3_deploy_verifier.js
+====================
+
+   Deploying 'Verifier'
+   --------------------
+   > transaction hash:    0x9e3bb19d3b27ba6d3e9059845df65abd1d90fdf9d3461f2e5c3cea22d366a8e3
+   > Blocks: 2            Seconds: 28
+   > contract address:    0x83F2Cb248280c767566BdfA7e40eB23994640485
+   > block number:        184264
+   > block timestamp:     1610563926
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            870280 (0xd4788)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+4_deploy_eth_tornado.js
+=======================
+
+   Deploying 'ETHTornado'
+   ----------------------
+   > transaction hash:    0x990cdbc93dbdd41d387fb63faf0423c04fe8c70a45d2fda3a3320b6747ecc3b2
+   > Blocks: 1            Seconds: 16
+   > contract address:    0x07648b36ACe082c08b251354C26aEB5c8EA6e84C
+   > block number:        184265
+   > block timestamp:     1610563944
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            3017810 (0x2e0c52)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+ETHTornado's address  0x07648b36ACe082c08b251354C26aEB5c8EA6e84C
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+5_deploy_erc20_tornado.js
+=========================
+
+   Deploying 'ERC20Mock'
+   ---------------------
+   > transaction hash:    0xa4da1aac68b5a26279c967bd2a128dfc0effcac69ecd208af5e56b7b8b533f5a
+   > Blocks: 1            Seconds: 20
+   > contract address:    0xDAdB1528B8b6eDF5f3657E2fa060b705f45dBE3A
+   > block number:        184267
+   > block timestamp:     1610563968
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            974167 (0xedd57)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+
+   Deploying 'ERC20Tornado'
+   ------------------------
+   > transaction hash:    0x8169138709740d768d55e5f782936f0dcb065e59f3721214a942b810239226a0
+   > Blocks: 0            Seconds: 20
+   > contract address:    0x74Bdc0947908eBd33d5925A4f0D44B91BCED789E
+   > block number:        184268
+   > block timestamp:     1610563986
+   > account:             0x50f4fF76Dd13ef1e03F105F249CA326BEd974Dd4
+   > balance:             19
+   > gas used:            3213977 (0x310a99)
+   > gas price:           0 gwei
+   > value sent:          0 ETH
+   > total cost:          0 ETH
+
+ERC20Tornado's address  0x74Bdc0947908eBd33d5925A4f0D44B91BCED789E
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+Summary
+=======
+> Total deployments:   5
+> Final cost:          0 ETH
