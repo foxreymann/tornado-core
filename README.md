@@ -1,3 +1,16 @@
+# Moonbase Alpha deployment
+
+1. `git clone tornado-core -b dev`
+1. `node -v`
+`v15.5.0`
+1. `npm i`
+1. `ganache-cli -d`
+1. `npm run download`
+1. `npm run build:contract`
+1. `cp .env.example .env`
+1. `npm run migrate:moonbase`
+1. `node minimal-demo.js`
+
 # Tornado Cash Privacy Solution [![Build Status](https://travis-ci.org/tornadocash/tornado-core.svg?branch=master)](https://travis-ci.org/tornadocash/tornado-core)
 
 Tornado Cash is a non-custodial Ethereum and ERC20 privacy solution based on zkSNARKs. It improves transaction privacy by breaking the on-chain link between recipient and destination addresses. It uses a smart contract that accepts ETH deposits that can be withdrawn by a different address. Whenever ETH is withdrawn by the new address, there is no way to link the withdrawal to the deposit, ensuring complete privacy.
