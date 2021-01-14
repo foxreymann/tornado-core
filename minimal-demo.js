@@ -11,11 +11,17 @@ const { toWei } = require('web3-utils')
 
 let web3, contract, netId, circuit, proving_key, groth16
 const MERKLE_TREE_HEIGHT = 20
-const RPC_URL = 'https://kovan.infura.io/v3/0279e3bdf3ee49d0b547c643c2ef78ef'
-const PRIVATE_KEY = 'ad5b6eb7ee88173fa43dedcff8b1d9024d03f6307a1143ecf04bea8ed40f283f' // 0x94462e71A887756704f0fb1c0905264d487972fE
-const CONTRACT_ADDRESS = '0xD6a6AC46d02253c938B96D12BE439F570227aE8E'
+const RPC_URL = 'https://rpc.testnet.moonbeam.network'
+const CONTRACT_ADDRESS = '0x07648b36ACe082c08b251354C26aEB5c8EA6e84C'
 const AMOUNT = '1'
 // CURRENCY = 'ETH'
+
+const ethers = require('ethers');
+const mnemonic = process.env.BOTNOMIC
+const wallet = ethers.Wallet.fromMnemonic(mnemonic);
+const PRIVATE_KEY = wallet._signingKey().privateKey
+
+console.log({PRIVATE_KEY})
 
 /** Generate random number of specified byte length */
 const rbigint = nbytes => bigInt.leBuff2int(crypto.randomBytes(nbytes))
@@ -41,11 +47,16 @@ function createDeposit(nullifier, secret) {
  * Make an ETH deposit
  */
 async function deposit() {
-  const deposit = createDeposit(rbigint(31), rbigint(31))
-  console.log('Sending deposit transaction...')
-  const tx = await contract.methods.deposit(toHex(deposit.commitment)).send({ value: toWei(AMOUNT), from: web3.eth.defaultAccount, gas:2e6 })
-  console.log(`https://kovan.etherscan.io/tx/${tx.transactionHash}`)
-  return `tornado-eth-${AMOUNT}-${netId}-${toHex(deposit.preimage, 62)}`
+  try {
+    const deposit = createDeposit(rbigint(31), rbigint(31))
+    console.log('Sending deposit transaction...')
+    const tx = await contract.methods.deposit(toHex(deposit.commitment)).send({ value: toWei(AMOUNT), from: web3.eth.defaultAccount, gas:2e6 })
+    console.log(`https://kovan.etherscan.io/tx/${tx.transactionHash}`)
+    return `tornado-eth-${AMOUNT}-${netId}-${toHex(deposit.preimage, 62)}`
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
 }
 
 /**
@@ -154,8 +165,8 @@ async function main() {
   groth16 = await buildGroth16()
   netId = await web3.eth.net.getId()
   contract = new web3.eth.Contract(require('./build/contracts/ETHTornado.json').abi, CONTRACT_ADDRESS)
-  const account = web3.eth.accounts.privateKeyToAccount('0x' + PRIVATE_KEY)
-  web3.eth.accounts.wallet.add('0x' + PRIVATE_KEY)
+  const account = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY)
+  web3.eth.accounts.wallet.add(PRIVATE_KEY)
   // eslint-disable-next-line require-atomic-updates
   web3.eth.defaultAccount = account.address
 
