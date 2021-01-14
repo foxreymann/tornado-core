@@ -13,7 +13,7 @@ let web3, contract, netId, circuit, proving_key, groth16
 const MERKLE_TREE_HEIGHT = 20
 const RPC_URL = 'https://rpc.testnet.moonbeam.network'
 const CONTRACT_ADDRESS = '0x07648b36ACe082c08b251354C26aEB5c8EA6e84C'
-const AMOUNT = '1'
+const AMOUNT = '0.1'
 // CURRENCY = 'ETH'
 
 const ethers = require('ethers');
@@ -48,11 +48,11 @@ function createDeposit(nullifier, secret) {
  */
 async function deposit() {
   try {
-    const deposit = createDeposit(rbigint(31), rbigint(31))
-    console.log('Sending deposit transaction...')
-    const tx = await contract.methods.deposit(toHex(deposit.commitment)).send({ value: toWei(AMOUNT), from: web3.eth.defaultAccount, gas:2e6 })
-    console.log(`https://kovan.etherscan.io/tx/${tx.transactionHash}`)
-    return `tornado-eth-${AMOUNT}-${netId}-${toHex(deposit.preimage, 62)}`
+  const deposit = createDeposit(rbigint(31), rbigint(31))
+  console.log('Sending deposit transaction...')
+  const tx = await contract.methods.deposit(toHex(deposit.commitment)).send({ value: toWei(AMOUNT), from: web3.eth.defaultAccount, gas:2e6 })
+  console.log(`https://kovan.etherscan.io/tx/${tx.transactionHash}`)
+  return `tornado-eth-${AMOUNT}-${netId}-${toHex(deposit.preimage, 62)}`
   } catch (err) {
     console.error(err)
     throw err
