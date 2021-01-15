@@ -9,7 +9,7 @@ const buildGroth16 = require('websnark/src/groth16')
 const websnarkUtils = require('websnark/src/utils')
 const { toWei } = require('web3-utils')
 
-let web3, contract, netId, circuit, proving_key, groth16
+let web3, web3ws, contract, netId, circuit, proving_key, groth16
 const MERKLE_TREE_HEIGHT = 20
 const RPC_URL = 'https://rpc.testnet.moonbeam.network'
 const CONTRACT_ADDRESS = '0x07648b36ACe082c08b251354C26aEB5c8EA6e84C'
@@ -21,8 +21,6 @@ const mnemonic = process.env.BOTNOMIC
 const wallet = ethers.Wallet.fromMnemonic(mnemonic);
 const PRIVATE_KEY = wallet._signingKey().privateKey
 
-console.log({PRIVATE_KEY})
-
 /** Generate random number of specified byte length */
 const rbigint = nbytes => bigInt.leBuff2int(crypto.randomBytes(nbytes))
 
@@ -31,6 +29,9 @@ const pedersenHash = data => circomlib.babyJub.unpackPoint(circomlib.pedersenHas
 
 /** BigNumber to hex string of specified length */
 const toHex = (number, length = 32) => '0x' + (number instanceof Buffer ? number.toString('hex') : bigInt(number).toString(16)).padStart(length * 2, '0')
+
+const tornadoAbi = require('./build/contracts/Tornado')
+const depositEventInputs = (tornadoAbi.abi.filter(abi => abi.name === 'Deposit'))[0].inputs
 
 /**
  * Create deposit object from secret and nullifier
@@ -97,9 +98,8 @@ async function generateMerkleProof(deposit) {
   console.log('Getting contract state...')
 
   // @Alberto - fails here
-  const events = await contract.getPastEvents('Deposit', { fromBlock: '184262', toBlock: 'latest' })
-  //  const events = await contract.getPastEvents('allEvents', { fromBlock: '184262', toBlock: 'latest' })
-
+  // const events = await contract.getPastEvents('Deposit', { fromBlock: '184262', toBlock: 'latest' })
+  const events = await contract.getPastEvents('allEvents', { fromBlock: '184262', toBlock: 'latest' })
 
   console.log({events})
   console.log(events[0].raw)
@@ -169,8 +169,59 @@ async function generateSnarkProof(deposit, recipient) {
   return { proof, args }
 }
 
+async function getDepositEvents() {
+  try {
+    const eventSignature = web3.utils.sha3('Deposit(bytes32,uint32,uint256)');
+    const events = []
+
+console.log({eventSignature})
+
+    // make it a promise
+
+    web3ws.eth
+     .subscribe(
+        'logs',
+        {
+           address: [CONTRACT_ADDRESS],
+           fromBlock: 184262,
+           toBlock: 'latest',
+           topics: [],
+        },
+        (error, result) => {
+           if (error) console.error(error);
+        }
+     )
+     .on('connected', function (subscriptionId) {
+        console.log(subscriptionId);
+console.log({events})
+        // somehow return from the function
+     })
+     .on('data', function (log) {
+        // process the log
+        if(log.topics[0] === eventSignature) {
+          eventParametes = web3.eth.abi.decodeLog(
+            depositEventInputs,
+            log.data,
+            [log.topics[1]]
+          )
+console.log({eventParametes})
+        }
+     })
+
+
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
+}
+
 async function main() {
+
   web3 = new Web3(new Web3.providers.HttpProvider(RPC_URL, { timeout: 5 * 60 * 1000 }), null, { transactionConfirmationBlocks: 1 })
+  web3ws = new Web3('wss://wss.testnet.moonbeam.network');
+  await getDepositEvents()
+
+/*
   circuit = require('./build/circuits/withdraw.json')
   proving_key = fs.readFileSync('build/circuits/withdraw_proving_key.bin').buffer
   groth16 = await buildGroth16()
@@ -186,6 +237,8 @@ async function main() {
   await withdraw(note, web3.eth.defaultAccount)
   console.log('Done')
   process.exit()
+*/
+
 }
 
 main()
