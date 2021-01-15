@@ -95,7 +95,11 @@ function parseNote(noteString) {
  */
 async function generateMerkleProof(deposit) {
   console.log('Getting contract state...')
+
+  // @AlebertoV19 - fails here
   const events = await contract.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
+  console.log({events})
+
   const leaves = events
     .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
     .map(e => e.returnValues.commitment)
@@ -111,6 +115,8 @@ async function generateMerkleProof(deposit) {
   assert(isValidRoot === true, 'Merkle tree is corrupted')
   assert(isSpent === false, 'The note is already spent')
   assert(leafIndex >= 0, 'The deposit is not found in the tree')
+
+console.log(await tree.path(leafIndex))
 
   // Compute merkle proof of our commitment
   return await tree.path(leafIndex)
