@@ -96,9 +96,14 @@ function parseNote(noteString) {
 async function generateMerkleProof(deposit) {
   console.log('Getting contract state...')
 
-  // @AlebertoV19 - fails here
-  const events = await contract.getPastEvents('Deposit', { fromBlock: 0, toBlock: 'latest' })
+  // @Alberto - fails here
+  const events = await contract.getPastEvents('Deposit', { fromBlock: '184262', toBlock: 'latest' })
+  //  const events = await contract.getPastEvents('allEvents', { fromBlock: '184262', toBlock: 'latest' })
+
+
   console.log({events})
+  console.log(events[0].raw)
+  console.log(events[10].raw)
 
   const leaves = events
     .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
