@@ -174,10 +174,7 @@ async function getDepositEvents() {
     const eventSignature = web3.utils.sha3('Deposit(bytes32,uint32,uint256)');
     const events = []
 
-console.log({eventSignature})
-
     // make it a promise
-
     web3ws.eth
      .subscribe(
         'logs',
@@ -204,9 +201,17 @@ console.log({events})
             log.data,
             [log.topics[1]]
           )
-console.log({eventParametes})
+          event = {
+            returnValues: {
+              leaf: eventParametes.leaf,
+              commitment: eventParametes.commitment
+            }
+          }
+          events.push(event)
         }
      })
+
+
 
 
   } catch (err) {
