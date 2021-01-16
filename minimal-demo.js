@@ -99,11 +99,8 @@ async function generateMerkleProof(deposit) {
 
   // @Alberto - fails here
   // const events = await contract.getPastEvents('Deposit', { fromBlock: '184262', toBlock: 'latest' })
-  const events = await contract.getPastEvents('allEvents', { fromBlock: '184262', toBlock: 'latest' })
-
-  console.log({events})
-  console.log(events[0].raw)
-  console.log(events[10].raw)
+  // const events = await contract.getPastEvents('allEvents', { fromBlock: '184262', toBlock: 'latest' })
+  const events = await getDepositEvents()
 
   const leaves = events
     .sort((a, b) => a.returnValues.leafIndex - b.returnValues.leafIndex) // Sort events in chronological order
@@ -120,8 +117,6 @@ async function generateMerkleProof(deposit) {
   assert(isValidRoot === true, 'Merkle tree is corrupted')
   assert(isSpent === false, 'The note is already spent')
   assert(leafIndex >= 0, 'The deposit is not found in the tree')
-
-console.log(await tree.path(leafIndex))
 
   // Compute merkle proof of our commitment
   return await tree.path(leafIndex)
@@ -175,44 +170,41 @@ async function getDepositEvents() {
     const events = []
 
     // make it a promise
-    web3ws.eth
-     .subscribe(
-        'logs',
-        {
-           address: [CONTRACT_ADDRESS],
-           fromBlock: 184262,
-           toBlock: 'latest',
-           topics: [],
-        },
-        (error, result) => {
-           if (error) console.error(error);
-        }
-     )
-     .on('connected', function (subscriptionId) {
-        console.log(subscriptionId);
-console.log({events})
-        // somehow return from the function
-     })
-     .on('data', function (log) {
-        // process the log
-        if(log.topics[0] === eventSignature) {
-          eventParametes = web3.eth.abi.decodeLog(
-            depositEventInputs,
-            log.data,
-            [log.topics[1]]
-          )
-          event = {
-            returnValues: {
-              leaf: eventParametes.leaf,
-              commitment: eventParametes.commitment
-            }
+    return new Promise(resolve => {
+      web3ws.eth
+       .subscribe(
+          'logs',
+          {
+             address: [CONTRACT_ADDRESS],
+             fromBlock: 184262,
+             toBlock: 'latest',
+             topics: [],
+          },
+          (error, result) => {
+             if (error) console.error(error);
           }
-          events.push(event)
-        }
-     })
+       )
+       .on('connected', function (subscriptionId) {
+          resolve(events)
+       })
+       .on('data', function (log) {
+          // process the log
+          if(log.topics[0] === eventSignature) {
+            eventParameters = web3.eth.abi.decodeLog(
+              depositEventInputs,
+              log.data,
+              [log.topics[1]]
+            )
 
+console.log({eventParameters})
 
+            events.push({
+              returnValues: eventParameters
+            })
+          }
+       })
 
+    })
 
   } catch (err) {
     console.error(err)
@@ -224,9 +216,7 @@ async function main() {
 
   web3 = new Web3(new Web3.providers.HttpProvider(RPC_URL, { timeout: 5 * 60 * 1000 }), null, { transactionConfirmationBlocks: 1 })
   web3ws = new Web3('wss://wss.testnet.moonbeam.network');
-  await getDepositEvents()
 
-/*
   circuit = require('./build/circuits/withdraw.json')
   proving_key = fs.readFileSync('build/circuits/withdraw_proving_key.bin').buffer
   groth16 = await buildGroth16()
@@ -242,7 +232,6 @@ async function main() {
   await withdraw(note, web3.eth.defaultAccount)
   console.log('Done')
   process.exit()
-*/
 
 }
 
