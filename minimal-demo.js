@@ -9,12 +9,13 @@ const buildGroth16 = require('websnark/src/groth16')
 const websnarkUtils = require('websnark/src/utils')
 const { toWei } = require('web3-utils')
 
-let web3, web3ws, contract, netId, circuit, proving_key, groth16
+let web3, web3ws, contract, verifierContract, netId, circuit, proving_key, groth16
 const MERKLE_TREE_HEIGHT = 20
 const RPC_URL = 'https://rpc.testnet.moonbeam.network'
-const CONTRACT_ADDRESS = '0x07648b36ACe082c08b251354C26aEB5c8EA6e84C'
 const AMOUNT = '0.1'
 // CURRENCY = 'ETH'
+const contractArtifact = require('./build/contracts/ETHTornado.json')
+const verifierArtifact = require('./build/contracts/Verifier.json')
 
 const ethers = require('ethers');
 const mnemonic = process.env.BOTNOMIC
@@ -84,7 +85,7 @@ console.log({args})
   ).call()
   console.log(`isValidRoot: ${isValidRoot}`)
 
-  const tx = await contract.methods.withdraw(proof, ...args).send({ from: web3.eth.defaultAccount, gas: 1e6 })
+  const tx = await contract.methods.withdraw(proof, ...args).send({ from: web3.eth.defaultAccount })
   console.log(`https://kovan.etherscan.io/tx/${tx.transactionHash}`)
 }
 
@@ -190,7 +191,7 @@ async function getDepositEvents() {
        .subscribe(
           'logs',
           {
-             address: [CONTRACT_ADDRESS],
+             address: [contractArtifact.networks['1287'].address],
              fromBlock: 184262,
              toBlock: 'latest',
              topics: [],
@@ -235,7 +236,9 @@ async function main() {
   proving_key = fs.readFileSync('build/circuits/withdraw_proving_key.bin').buffer
   groth16 = await buildGroth16()
   netId = await web3.eth.net.getId()
-  contract = new web3.eth.Contract(require('./build/contracts/ETHTornado.json').abi, CONTRACT_ADDRESS)
+  contract = new web3.eth.Contract(contractArtifact.abi, contractArtifact.networks['1287'].address)
+  verifierContract = new web3.eth.Contract(verifierArtifact.abi, verifierArtifact.networks['1287'].address)
+
   const account = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY)
   web3.eth.accounts.wallet.add(PRIVATE_KEY)
   // eslint-disable-next-line require-atomic-updates

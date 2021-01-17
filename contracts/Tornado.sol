@@ -72,6 +72,12 @@ contract Tornado is MerkleTreeWithHistory, ReentrancyGuard {
   /** @dev this function is defined in a child contract */
   function _processDeposit() internal;
 
+  function verifyProof(
+    _proof, [uint256(_root), uint256(_nullifierHash), uint256(_recipient), uint256(_relayer), _fee, _refund]
+  ) public view returns(bool) {
+    return verifier.verifyProof(_proof, [uint256(_root), uint256(_nullifierHash), uint256(_recipient), uint256(_relayer), _fee, _refund])
+  }
+
   /**
     @dev Withdraw a deposit from the contract. `proof` is a zkSNARK proof data, and input is an array of circuit public inputs
     `input` array consists of:
