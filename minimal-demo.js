@@ -66,9 +66,24 @@ async function deposit() {
  * @param recipient Recipient address
  */
 async function withdraw(note, recipient) {
+
   const deposit = parseNote(note)
   const { proof, args } = await generateSnarkProof(deposit, recipient)
   console.log('Sending withdrawal transaction...')
+
+console.log({proof})
+console.log({args})
+
+  const isSpent = await contract.methods.isSpent(
+    args[1]
+  ).call()
+  console.log(`isSpent: ${isSpent}`)
+
+  const isValidRoot = await contract.methods.isKnownRoot(
+    args[0]
+  ).call()
+  console.log(`isValidRoot: ${isValidRoot}`)
+
   const tx = await contract.methods.withdraw(proof, ...args).send({ from: web3.eth.defaultAccount, gas: 1e6 })
   console.log(`https://kovan.etherscan.io/tx/${tx.transactionHash}`)
 }
@@ -185,6 +200,7 @@ async function getDepositEvents() {
           }
        )
        .on('connected', function (subscriptionId) {
+          web3ws.eth.clearSubscriptions()
           resolve(events)
        })
        .on('data', function (log) {
@@ -195,8 +211,6 @@ async function getDepositEvents() {
               log.data,
               [log.topics[1]]
             )
-
-console.log({eventParameters})
 
             events.push({
               returnValues: eventParameters
