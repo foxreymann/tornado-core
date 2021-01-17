@@ -73,9 +73,9 @@ contract Tornado is MerkleTreeWithHistory, ReentrancyGuard {
   function _processDeposit() internal;
 
   function verifyProof(
-    _proof, [uint256(_root), uint256(_nullifierHash), uint256(_recipient), uint256(_relayer), _fee, _refund]
-  ) public view returns(bool) {
-    return verifier.verifyProof(_proof, [uint256(_root), uint256(_nullifierHash), uint256(_recipient), uint256(_relayer), _fee, _refund])
+    bytes memory _proof, bytes32 _root, bytes32 _nullifierHash, address payable _recipient, address payable _relayer, uint256 _fee, uint256 _refund
+  ) public returns(bool) {
+    return verifier.verifyProof(_proof, [uint256(_root), uint256(_nullifierHash), uint256(_recipient), uint256(_relayer), _fee, _refund]);
   }
 
   /**

@@ -85,7 +85,13 @@ console.log({args})
   ).call()
   console.log(`isValidRoot: ${isValidRoot}`)
 
-  const tx = await contract.methods.withdraw(proof, ...args).send({ from: web3.eth.defaultAccount })
+
+  const isVerified = await contract.methods.verifyProof(
+    proof, ...args
+  ).call()
+  console.log(`isVerified: ${isVerified}`)
+
+  const tx = await contract.methods.withdraw(proof, ...args).send({ from: web3.eth.defaultAccount, gas: 1e6 })
   console.log(`https://kovan.etherscan.io/tx/${tx.transactionHash}`)
 }
 
